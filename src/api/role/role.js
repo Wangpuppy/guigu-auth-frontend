@@ -8,12 +8,20 @@ export default {
     getPageList(page,limit,searchObj){
         return request({
             //接口路径
-            // url: '/admin/system/sysRole/' +page +'/'+ limit,
             url: `${api_name}/${page}/${limit}`,
             method: 'get', //提交方式
             //参数
             params: searchObj
         })
-    }
+    },
+    //删除
+    removeId(id){
+        return request({
+            //接口路径
+            url: `${api_name}/remove/${id}`,
+            method: 'delete', //提交方式
+        })
+    },
+
 }
 
