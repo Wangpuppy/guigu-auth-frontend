@@ -21,6 +21,7 @@
     <!-- 工具条 -->
     <div class="tools-div">
       <el-button type="success" icon="el-icon-plus" size="mini" @click="add">添 加</el-button>
+      <el-button class="btn-add" size="mini" @click="batchRemove()">批量删除</el-button>
     </div>
 
     <!-- 表格 -->
@@ -29,7 +30,11 @@
       :data="list"
       stripe
       border
-      style="width: 100%;margin-top: 10px;">
+      style="width: 100%;margin-top: 10px;"
+      @selection-change="handleSelectionChange">
+
+      <!--复选框-->
+      <el-table-column type="selection"/>
 
       <el-table-column
         label="序号"
@@ -97,8 +102,9 @@ export default {
       limit: 3,//每页显示记录数
       searchObj: {},//条件查询封装对象
 
-      dialogVisible: false,//是否显示弹出框
-      sysRole: {}//封装添加表单的数据
+      dialogVisible: false, //是否显示弹出框
+      sysRole: {}, //封装添加表单的数据
+      selectValue: [] //复选框选择封装数组
 
     }
   },
@@ -108,29 +114,71 @@ export default {
     this.fetchData()
   },
   methods: {//具体方法
+    //复选框发生变化执行方法
+    handleSelectionChange(selection) {
+      this.selectValue = selection
+      // console.log(this.selectValue)
+    },
+    //批量删除
+    batchRemove() {
+      //判断
+      if (this.selectValue.length == 0) {
+        this.$message.warning('请选择要删除的记录！')
+        return //结束方法
+      }
+      this.$confirm('此操作将永久删除该角色, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        //数组
+        var idList = []
+        //获取多个复选框对应id，封装到数组里面
+        // [1,2,3]
+        for (var i = 0; i < this.selectValue.length; i++) {
+          var obj = this.selectValue[i]
+          //id值
+          var id = obj.id
+          //放到数组里面
+          idList.push(id)
+        }
+
+        //调用方法批量删除
+        api.batchRemove(idList)
+          .then(response => {
+            //提示
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            });
+            //刷新页面
+            this.fetchData()
+          })
+      })
+    },
     //修改-数据回显
-    edit(id){
+    edit(id) {
       //弹出框
       this.dialogVisible = true
-      api.getRoleId(id).then(response=>{
+      api.getRoleId(id).then(response => {
         this.sysRole = response.data
       })
     },
     //点击确定
     saveOrUpdate() {
       //判断添加还是修改
-      if (!this.sysRole.id){
+      if (!this.sysRole.id) {
         //没有id,添加
         this.saveRole()
-      }else {
+      } else {
         //有id,修改
         this.updateRole()
       }
 
     },
     //修改的方法
-    updateRole(){
-      api.update(this.sysRole).then(response=>{
+    updateRole() {
+      api.update(this.sysRole).then(response => {
         //提示
         this.$message({
           type: 'success',

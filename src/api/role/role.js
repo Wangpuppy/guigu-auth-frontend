@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import {id} from "html-webpack-plugin/lib/chunksorter";
 
 
 //常量
@@ -46,7 +47,18 @@ export default {
       //接口路径
       url: `${api_name}/update`,
       method: 'post', //提交方式
+      //通过json形式传递数据，传递json格式
       data: role
+    })
+  },
+  //批量删除
+  batchRemove(idList) {
+    return request({
+      //接口路径
+      url: `${api_name}/batchRemove`,
+      method: 'delete', //提交方式
+      //通过json形式传递数据，传递json格式
+      data: idList
     })
   },
 }
