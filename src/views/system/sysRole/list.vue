@@ -88,7 +88,7 @@
 
 <script>
 //引入定义接口的js文件
-import api from '@/api/role/role.js'
+import api from '@/api/system/role.js'
 import th from "element-ui/src/locale/lang/th";
 
 export default {
