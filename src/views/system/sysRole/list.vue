@@ -108,19 +108,39 @@ export default {
     this.fetchData()
   },
   methods: {//具体方法
+    //修改-数据回显
+    edit(id){
+      //弹出框
+      this.dialogVisible = true
+      api.getRoleId(id).then(response=>{
+        this.sysRole = response.data
+      })
+    },
     //点击确定
     saveOrUpdate() {
       //判断添加还是修改
       if (!this.sysRole.id){
+        //没有id,添加
         this.saveRole()
       }else {
+        //有id,修改
         this.updateRole()
       }
 
     },
     //修改的方法
     updateRole(){
-
+      api.update(this.sysRole).then(response=>{
+        //提示
+        this.$message({
+          type: 'success',
+          message: '修改成功!'
+        });
+        //关闭弹框
+        this.dialogVisible = false
+        //刷新页面
+        this.fetchData()
+      })
     },
     //添加的方法
     saveRole() {

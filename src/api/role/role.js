@@ -32,5 +32,22 @@ export default {
       data: role
     })
   },
+  //根据id查询
+  getRoleId(id) {
+    return request({
+      //接口路径
+      url: `${api_name}/findRoleById/${id}`,
+      method: 'post', //提交方式
+    })
+  },
+  //修改的方法
+  update(role){
+    return request({
+      //接口路径
+      url: `${api_name}/update`,
+      method: 'post', //提交方式
+      data: role
+    })
+  },
 }
 
