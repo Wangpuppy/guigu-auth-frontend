@@ -109,6 +109,7 @@
 </template>
 <script>
 import api from '@/api/system/user.js'
+import ro from "element-ui/src/locale/lang/ro";
 
 export default {
   data() {
@@ -132,6 +133,15 @@ export default {
     this.fetchData()
   },
   methods: {
+    //更改用户状态
+    switchStatus(row){
+      //判断，如果当前用户可用，修改禁用
+      row.status = row.status === 1?0:1
+      api.updateStatus(row.id,row.status).then(response=>{
+        this.$message.success(response.message || '操作成功')
+        this.fetchData()
+      })
+    },
     //删除
     removeDataById(id) {
       this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {

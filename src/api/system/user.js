@@ -49,7 +49,14 @@ export default {
       url: `${api_name}/remove/${id}`,
       method: 'delete' //提交方式
     })
-  }
-
+  },
+  //更改用户状态
+  updateStatus(id,status){
+    return request({
+      //接口路径
+      url: `${api_name}/updateStatus/${id}/${status}`,
+      method: 'get' //提交方式
+    })
+  },
 
 }
