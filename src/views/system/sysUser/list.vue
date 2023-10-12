@@ -133,6 +133,40 @@ export default {
     this.fetchData()
   },
   methods: {
+    //添加或者修改方法
+    saveOrUpdate() {
+      if (!this.sysUser.id){
+        this.save()
+      }else {
+        this.update()
+      }
+
+    },
+    //修改
+    update(){
+
+
+    },
+    //添加
+    save() {
+      api.save(this.sysUser).then(response=>{
+        //提示
+        this.$message.success('操作成功')
+
+        //关闭弹框
+        this.dialogVisible = false
+
+        //刷新页面
+        this.fetchData()
+      })
+    },
+
+    //添加弹框的方法
+    add() {
+      this.dialogVisible = true
+      this.sysUser = {}
+    },
+
     // 重置查询表单
     resetData() {
       console.log('重置查询表单')
