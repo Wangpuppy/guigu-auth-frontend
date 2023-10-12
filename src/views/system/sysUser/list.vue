@@ -132,24 +132,46 @@ export default {
     this.fetchData()
   },
   methods: {
+    //删除
+    removeDataById(id) {
+      this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        //调用方法删除
+        api.removeById(id).then(response => {
+          //提示
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+
+          //刷新页面
+          this.fetchData()
+        })
+
+      })
+
+    },
     //添加或者修改方法
     saveOrUpdate() {
-      if (!this.sysUser.id){
+      if (!this.sysUser.id) {
         this.save()
-      }else {
+      } else {
         this.update()
       }
     },
     //根据id查询，数据回显
-    edit(id){
+    edit(id) {
       this.dialogVisible = true
-      api.getUserId(id).then(response=>{
+      api.getUserId(id).then(response => {
         this.sysUser = response.data
       })
     },
     //修改
-    update(){
-      api.update(this.sysUser).then(response=>{
+    update() {
+      api.update(this.sysUser).then(response => {
         //提示
         this.$message.success('修改成功')
 
@@ -163,7 +185,7 @@ export default {
     },
     //添加
     save() {
-      api.save(this.sysUser).then(response=>{
+      api.save(this.sysUser).then(response => {
         //提示
         this.$message.success('操作成功')
 

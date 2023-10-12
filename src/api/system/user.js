@@ -47,7 +47,7 @@ export default {
     return request({
       //接口路径
       url: `${api_name}/remove/${id}`,
-      method: 'post' //提交方式
+      method: 'delete' //提交方式
     })
   }
 
