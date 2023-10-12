@@ -1,5 +1,4 @@
 import request from '@/utils/request'
-import {id} from "html-webpack-plugin/lib/chunksorter";
 
 
 //常量
