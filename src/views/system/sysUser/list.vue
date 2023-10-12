@@ -127,7 +127,6 @@ export default {
 
     }
   },
-  //
   created() {
     //调用列表方法
     this.fetchData()
@@ -140,11 +139,26 @@ export default {
       }else {
         this.update()
       }
-
+    },
+    //根据id查询，数据回显
+    edit(id){
+      this.dialogVisible = true
+      api.getUserId(id).then(response=>{
+        this.sysUser = response.data
+      })
     },
     //修改
     update(){
+      api.update(this.sysUser).then(response=>{
+        //提示
+        this.$message.success('修改成功')
 
+        //关闭弹框
+        this.dialogVisible = false
+
+        //刷新页面
+        this.fetchData()
+      })
 
     },
     //添加

@@ -29,7 +29,7 @@ export default {
     return request({
       //接口路径
       url: `${api_name}/getUserById/${id}`,
-      method: 'delete' //提交方式
+      method: 'get' //提交方式
     })
   },
   //修改
