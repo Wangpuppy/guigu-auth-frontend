@@ -113,7 +113,6 @@
 
 <script>
 import api from '@/api/system/menu'
-
 const defaultForm = {
   id: '',
   parentId: '',
@@ -200,7 +199,7 @@ export default {
   },
 
   //当页面加载时获取数据
-  created() { //页面渲染之前执行
+  created() {
     this.fetchData()
   },
 
