@@ -73,9 +73,28 @@ export const constantRoutes = [
         name: 'SysUser',
         component: () => import('@/views/system/sysUser/list.vue'),
         meta: { title: '用户管理', icon: 'tree' }
+      },
+      {
+        name: 'sysMenu',
+        path: 'sysMenu',
+        component: () => import('@/views/system/sysMenu/list'),
+        meta: {
+          title: '菜单管理',
+          icon: 'el-icon-s-unfold'
+        },
+      },
+      {
+        path: 'assignAuth',
+        component: () => import('@/views/system/sysRole/assignAuth'),
+        meta: {
+          activeMenu: '/system/sysRole',
+          title: '角色授权'
+        },
+        hidden: true,
       }
     ]
   },
+
 
 
   // 404 page must be placed at the end !!!
